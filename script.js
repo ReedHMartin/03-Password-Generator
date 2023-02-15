@@ -11,7 +11,7 @@ function generatePassword() {
   var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   var passwordLength = prompt("Enter Desired Password Length. Must Be Between 8 and 128 Characters.");
-    while (isNan(passwordLength) || passwordLength < 8 || passwordLength > 128) {
+    while (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
     passwordLength = prompt("Invalid Length Entry. Length Must Be Between 8 and 128 Characters Long. Enter Desired Length of New Password.");
   }
 
@@ -44,6 +44,16 @@ function generatePassword() {
     selectedChars.push(numbers[Math.floor(Math.random() * numbers.length)]);
   }
 
+  /** Build selectedChars to correct length */
+  for (let i = 0; i < passwordLength; i++) {
+    if(selectedChars.length < passwordLength){
+      /** Additional chars needed: append a new random char */
+      selectedChars.push(allowableChars[Math.floor(Math.random() * allowableChars.length)]);
+    }
+  }
+
+  /** Convert array to string */
+  return selectedChars.join('');
 }
 
 // Write password to the #password input
